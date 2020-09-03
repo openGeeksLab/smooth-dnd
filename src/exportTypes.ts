@@ -55,6 +55,7 @@ export interface ContainerOptions {
 	shouldAcceptDrop?: (sourceContainerOptions: ContainerOptions, payload: any) => boolean;
 	onDragEnter?: () => void;
 	onDragLeave?: () => void;
+	onMove?: (...args: any[]) => void;
 	onDropReady?: OnDropReadyCallback;
 	removeOnDropOut?: boolean;
 	getGhostParent?: () => HTMLElement;

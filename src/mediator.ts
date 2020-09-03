@@ -18,6 +18,7 @@ let draggableInfo: DraggableInfo = null!;
 let containers: IContainer[] = [];
 let isDragging = false;
 let isCanceling = false;
+let startYPosition = 0;
 let dropAnimationStarted = false;
 let missedDrag = false;
 let handleDrag: (info: DraggableInfo) => boolean = null!;
@@ -350,6 +351,7 @@ function onMouseDown(event: MouseEvent & TouchEvent) {
       }
 
       if (startDrag) {
+        startYPosition = e.clientY;
         container.layout.invalidate();
         Utils.addClass(window.document.body, constants.disbaleTouchActions);
         Utils.addClass(window.document.body, constants.noUserSelectClass);
@@ -450,6 +452,10 @@ function onMouseMove(event: MouseEvent & TouchEvent) {
 
     if (missedDrag) {
       debouncedHandleMissedDragFrame();
+    }
+
+    if(isDragging && containerOptions.onMove) {
+      containerOptions.onMove(draggableInfo, startYPosition)
     }
   }
 }
